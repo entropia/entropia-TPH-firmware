@@ -23,4 +23,5 @@ If you want to use OTA, following files are required:
 
 Move them from their respective .default-file and adjust them to your config
 You also have to include the following line in your main.cpp: <br>
-```#include "OTA_credentials.hpp"```
+```#include "OTA_credentials.hpp"``` <br>
+(Note: It is also required to include the OTA-Password and optionally the OTA-Hostname/IP in the platformio.ini to use OTA)
