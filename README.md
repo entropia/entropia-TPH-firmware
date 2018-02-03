@@ -10,32 +10,17 @@ Connect the ESP, reset it into flash mode and flash with  `platformio run -t upl
 
 ### Credentials
 
-Two files are needed:
-* platformio/src/MQTT_credentials.hpp
+Two files are required:
+* src/MQTT_credentials.hpp
+* src/WiFi_credentials.hpp
 
- ```cpp
-#ifndef MQTT_CREDENTIALS_HPP
-#define MQTT_CREDENTIALS_HPP
+Move them from their respective .default-file and adjust them to your config
 
-#define MQTT_SERVER      "mqtt.club.entropia.de"
-#define MQTT_SERVER_PORT 1883
-#define MQTT_TOPIC       "/public/sensoren/hauptraum"
-#define MQTT_USER        "eve"
-#define MQTT_PASSWORD    "entropia"
+#### Optional
 
-#endif
-```
+If you want to use OTA, following files are required:
+* src/OTA_credentials.hpp
 
-* platformio/src/WiFi_credentials.hpp
-
-```cpp
-#ifndef WIFI_CREDENTIALS_HPP
-#define WIFI_CREDENTIALS_HPP
-
-#define SSID   "entropolis"
-#define WIFIPW "Iliketr41nz!"
-
-#endif
-```
-
-Replace the values with your own configuration!
+Move them from their respective .default-file and adjust them to your config
+You also have to include the following line in your main.cpp: <br>
+```#include "OTA_credentials.hpp"```
