@@ -14,7 +14,6 @@
 
 #include "WiFi_credentials.hpp"
 #include "MQTT_credentials.hpp"
-#include "OTA_credentials.hpp"
 
 #ifdef OTA_CREDENTIALS_HPP
   #include <ArduinoOTA.h>
