@@ -2,6 +2,9 @@
 .piolibdeps
 .clang_complete
 .gcc-flags.json
-*.hpp
-lib/
 platformio.ini
+lib/
+
+src/MQTT.hpp
+src/OTA.hpp
+src/WiFi.hpp
