@@ -14,9 +14,8 @@
 
 #include "WiFi_credentials.hpp"
 #include "MQTT_credentials.hpp"
-
-#ifdef OTA_CREDENTIALS_HPP
-  #include <ArduinoOTA.h>
+#ifdef USE_OTA
+  #include "OTA.hpp"
 #endif
 
 //Global Constants
@@ -33,7 +32,6 @@ Adafruit_MQTT_Client mqtt(&client, MQTT_SERVER, MQTT_SERVER_PORT, MQTT_USER, MQT
 
 //Functions prototypes
 void setupWiFi();
-void OTA_init();
 void readBME(float *bmeData);
 void mqtt_connect();
 void mqtt_publish(float *bmeData);
@@ -41,6 +39,9 @@ void mqtt_publish(float *bmeData);
 void setup() {
   Serial.begin(115200);
   setupWiFi();
+  #ifdef USE_OTA
+    OTA_init();
+  #endif
 
   if(!bme.begin(0x76))
     Serial.println(F("Could not find a BME280 Sensor!"));
@@ -51,16 +52,16 @@ void setup() {
 
 void loop() {
     mqtt_connect();
-    
+
     //Measure every X seconds
-    if((millis() - last) > MEASURE) { 
+    if((millis() - last) > MEASURE) {
         readBME(bmeData);
         mqtt_publish(bmeData);
-        
+
         last = millis();
     }
-    
-    #ifdef OTA_CREDENTIALS_HPP
+
+    #ifdef USE_OTA
       ArduinoOTA.handle();
     #endif
 }
@@ -135,32 +136,4 @@ void mqtt_publish(float *bmeData) {
 
   Adafruit_MQTT_Publish humidity = Adafruit_MQTT_Publish(&mqtt, MQTT_TOPIC "/H");
   humidity.publish(bmeData[2]);
-}
-
-void OTA_init(){
-  #ifdef OTA_CREDENTIALS_HPP
-    //OTA-Part
-    ArduinoOTA.setHostname(OTA_USERNAME);
-    ArduinoOTA.setPassword(OTA_PASSWORD);
-
-    //OTA-Updatepart
-    ArduinoOTA.onStart([]() {
-       Serial.println("Start");
-     });
-     ArduinoOTA.onEnd([]() {
-       Serial.println("\nEnd");
-     });
-     ArduinoOTA.onProgress([](unsigned int progress, unsigned int total) {
-       Serial.printf("Progress: %u%%\r", (progress / (total / 100)));
-     });
-     ArduinoOTA.onError([](ota_error_t error) {
-       Serial.printf("Error[%u]: ", error);
-       if (error == OTA_AUTH_ERROR) Serial.println("Auth Failed" + String(OTA_PASSWORD));
-       else if (error == OTA_BEGIN_ERROR) Serial.println("Begin Failed");
-       else if (error == OTA_CONNECT_ERROR) Serial.println("Connect Failed");
-       else if (error == OTA_RECEIVE_ERROR) Serial.println("Receive Failed");
-       else if (error == OTA_END_ERROR) Serial.println("End Failed");
-     });
-     ArduinoOTA.begin();
-  #endif
 }
