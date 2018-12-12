@@ -1,5 +1,5 @@
-#ifndef WIFI_CREDENTIALS_HPP
-#define WIFI_CREDENTIALS_HPP
+#ifndef WIFI_HPP
+#define WIFI_HPP
 
 #define SSID   "entropolis"
 #define WIFIPW "Iliketr41nz!"

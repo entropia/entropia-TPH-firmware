@@ -12,8 +12,8 @@
 #include <Adafruit_MQTT.h>
 #include <Adafruit_MQTT_Client.h>
 
-#include "WiFi_credentials.hpp"
-#include "MQTT_credentials.hpp"
+#include "WiFi.hpp"
+#include "MQTT.hpp"
 #ifdef USE_OTA
   #include "OTA.hpp"
 #endif

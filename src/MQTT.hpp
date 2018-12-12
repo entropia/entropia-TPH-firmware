@@ -1,5 +1,5 @@
-#ifndef MQTT_CREDENTIALS_HPP
-#define MQTT_CREDENTIALS_HPP
+#ifndef MQTT_HPP
+#define MQTT_HPP
 
 #define MQTT_SERVER      "mqtt.club.entropia.de"
 #define MQTT_SERVER_PORT 1883
