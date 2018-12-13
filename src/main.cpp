@@ -27,15 +27,15 @@ void setup() {
 
 
 void loop() {
-    mqtt_connect();
+  mqtt_connect();
 
-    //Measure every X seconds
-    if((millis() - last) > MEASURE_DELAY) {
-        measureBME();
-        last = millis();
-    }
+  //Measure every X seconds
+  if((millis() - last) > MEASURE_DELAY) {
+      measureBME();
+      last = millis();
+  }
 
-    #ifdef USE_OTA
-      ArduinoOTA.handle();
-    #endif
+  #ifdef USE_OTA
+    ArduinoOTA.handle();
+  #endif
 }
