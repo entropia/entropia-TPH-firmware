@@ -8,8 +8,6 @@
 #include <SPI.h>
 #include <Adafruit_Sensor.h>
 #include <Adafruit_BME280.h>
-#include <Adafruit_MQTT.h>
-#include <Adafruit_MQTT_Client.h>
 
 #include "WiFi.hpp"
 #include "MQTT.hpp"
@@ -26,7 +24,6 @@ float bmeData[3];
 
 //Object declarations
 Adafruit_BME280 bme;
-Adafruit_MQTT_Client mqtt(&client, MQTT_SERVER, MQTT_SERVER_PORT, MQTT_USER, MQTT_PASSWORD);
 
 //Functions prototypes
 void readBME(float *bmeData);
@@ -78,31 +75,6 @@ void readBME(float* bmeData) {
   bmeData[0] = T;
   bmeData[1] = P;
   bmeData[2] = H;
-}
-
-void mqtt_connect() {
-  // Stop if already connected.
-  if(mqtt.connected()){
-    return;
-  }
-
-  Serial.print(F("Connecting to MQTT... "));
-
-  int8_t ret;
-  uint8_t retries = 3;
-  while((ret = mqtt.connect()) != 0){ // connect will return 0 for connected
-       Serial.println(mqtt.connectErrorString(ret));
-       Serial.println(F("Retrying MQTT connection in 5 seconds..."));
-
-       mqtt.disconnect();
-       delay(5000);  // wait 5 seconds
-
-       retries--;
-       if(retries == 0){
-         while (1); // basically die and wait for WDT to reset me
-       }
-  }
-  Serial.println(F("MQTT Connected!"));
 }
 
 void mqtt_publish(float *bmeData) {
