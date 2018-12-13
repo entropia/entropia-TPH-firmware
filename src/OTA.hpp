@@ -3,10 +3,13 @@
 
 #include <ArduinoOTA.h>
 
+//Optional feature. Uncomment to activate
+//#define USE_OTA
+
 #define OTA_USERNAME "foobar"
 #define OTA_PASSWORD "superSecurePassword"
 
 
-void OTA_init();
+void initOTA();
 
 #endif

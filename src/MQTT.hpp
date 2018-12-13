@@ -4,6 +4,7 @@
 #include <Adafruit_MQTT.h>
 #include <Adafruit_MQTT_Client.h>
 
+//How long to process packets()
 #define MQTT_PROCESS_TIME 10
 
 //Server-Settings
@@ -17,10 +18,10 @@
 #define MQTT_PASSWORD        "entropia"
 
 //Not required by default
-//Concatination
+//Concatinations
 #define MQTT_TOPIC           MQTT_PREFIX MQTT_DEVICE_NAME
-#define MQTT_CONTROL_TOPIC   MQTT_TOPIC "/control"
-#define MQTT_RESPONSE_TOPIC  MQTT_TOPIC "/response"
+#define MQTT_TOPIC_CONTROL   MQTT_TOPIC "/control"
+#define MQTT_TOPIC_RESPONSE  MQTT_TOPIC "/response"
 
 #define MQTT_COMMON_TOPIC    MQTT_PREFIX "common"
 #define MQTT_COMMON_CONTROL  MQTT_COMMON_TOPIC "/control"
