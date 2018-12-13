@@ -6,7 +6,6 @@
 
 #include <Wire.h>
 #include <SPI.h>
-#include <ESP8266WiFi.h>
 #include <Adafruit_Sensor.h>
 #include <Adafruit_BME280.h>
 #include <Adafruit_MQTT.h>
@@ -27,11 +26,9 @@ float bmeData[3];
 
 //Object declarations
 Adafruit_BME280 bme;
-WiFiClient client;
 Adafruit_MQTT_Client mqtt(&client, MQTT_SERVER, MQTT_SERVER_PORT, MQTT_USER, MQTT_PASSWORD);
 
 //Functions prototypes
-void setupWiFi();
 void readBME(float *bmeData);
 void mqtt_connect();
 void mqtt_publish(float *bmeData);
@@ -68,25 +65,6 @@ void loop() {
 
 
 //Function definitions
-void setupWiFi() {
-  WiFi.mode(WIFI_STA);
-
-  while ( WiFi.status() != WL_CONNECTED) {
-    Serial.println("Attempting to connect network, SSID: ");
-    Serial.println(SSID);
-    WiFi.begin(SSID, WIFIPW);
-
-    unsigned long start = millis();
-    while(millis() - start < 20000 && WiFi.status() != WL_CONNECTED){
-        delay(100);
-    }
-  }
-
-  Serial.println("\nWifi Conected! \\o/ \n IP Address:");
-  Serial.println(WiFi.localIP());
-}
-
-
 void readBME(float* bmeData) {
   float T = bme.readTemperature();
   delay(50);
