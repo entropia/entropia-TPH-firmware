@@ -16,11 +16,11 @@ unsigned long last = 0;
 void setup() {
   Serial.begin(115200);
   setupWiFi();
+  initBME();
+
   #ifdef USE_OTA
     OTA_init();
   #endif
-
-  initBME();
 
   delay(400);
 }
