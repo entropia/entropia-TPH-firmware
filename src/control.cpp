@@ -3,6 +3,8 @@
 
 #include "control.hpp"
 
+//Personal note: If you know any better solution than this horrible ifdef-mess: please let me know!
+
 //Option-specific variable block
 #ifdef USE_CONTROL
   Adafruit_MQTT_Subscribe control(&mqtt, MQTT_TOPIC_CONTROL);
