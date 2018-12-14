@@ -1,6 +1,7 @@
 #include "Arduino.h"
 
 #include "WiFi.hpp"
+#include "MQTT.hpp"
 
 WiFiClient client;
 
@@ -10,6 +11,7 @@ void setupWiFi() {
   while ( WiFi.status() != WL_CONNECTED) {
     Serial.println("Attempting to connect network, SSID: ");
     Serial.println(SSID);
+    WiFi.hostname("esp-" MQTT_DEVICE_NAME);
     WiFi.begin(SSID, WIFIPW);
 
     unsigned long start = millis();
