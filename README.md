@@ -13,7 +13,7 @@ Afterwards: Connect to the ESP via UART, reset it into flash mode and flash with
 
 Two files have to be edited:
 * src/MQTT.hpp
-* src/WiFihpp
+* src/WiFi.hpp
 
 Please adjust the default configuration in them to match your setup.
 
